@@ -7,8 +7,7 @@ Gambaran awal tampilan menu utama:
  2. Kendaraan Keluar
  3. Lihat Denah Parkir
  4. Cari Kendaraan
- 5. Laporan & Pendapatan
- 6. Kelola Member
+ 5. Laporan & Penjualan
  0. Simpan & Keluar
 ----------------------------------------
  Kapasitas: 38/60 terisi (63%)
