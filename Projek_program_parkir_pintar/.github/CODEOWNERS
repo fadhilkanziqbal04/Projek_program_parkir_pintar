@@ -1,0 +1,13 @@
+*                       @ricanuradella
+
+/src/parkir.c           @fadhilkanziqbal04 @ricanuradella
+/include/parkir.h       @fadhilkanziqbal04 @ricanuradella
+
+/src/tarif.c            @AlfianVHWLD @ricanuradella
+/include/tarif.h        @AlfianVHWLD @ricanuradella
+
+/src/laporan.c          @rapip2611 @ricanuradella
+/src/fileio.c           @rapip2611 @ricanuradella
+/include/laporan.h      @rapip2611 @ricanuradella
+/include/fileio.h       @rapip2611 @ricanuradella
+/tests/                 @rapip2611 @ricanuradella
