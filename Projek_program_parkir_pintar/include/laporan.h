@@ -1,27 +1,14 @@
 #ifndef LAPORAN_H
 #define LAPORAN_H
-#include <time.h>
 
-#define MAX_TRANSAKSI 1000
+#define FILE_LAPORAN   "laporan_riwayat.txt"
+#define FOLDER_BACKUP  "backup"      /* folder harus sudah ada */
 
-typedef struct {
-    char   plat[15];
-    int    jenis;         /* 1 motor, 2 mobil, 3 truk */
-    int    vip;           /* 1 = layanan VIP */
-    time_t waktuMasuk;
-    time_t waktuKeluar;
-    double diskon;        /* potongan (rupiah) */
-    double biaya;         /* biaya akhir */
-} Transaksi;
+/* Salin SEMUA riwayat ke file txt yang bisa dibaca, lalu otomatis membuat salinannya
+   di folder backup (backup/laporan_YYYYMMDD_HHMMSS.txt). Return 1 jika keduanya berhasil. */
+int simpanLaporan(void);
 
-extern Transaksi riwayat[MAX_TRANSAKSI];
-extern int jumlahRiwayat;
-
-int    tambahRiwayat(const char *plat, int jenis, int vip,
-                     time_t masuk, time_t keluar, double diskon, double biaya);
-void   tampilRiwayat(void);
-double totalPendapatan(void);
-int    cariRiwayatPlat(const char *plat);
-void   menuLaporan(void);
+/* Submenu untuk menu utama nomor "Laporan & Riwayat Transaksi" (dipanggil dari menu.c) */
+void menuLaporanRiwayat(void);
 
 #endif
