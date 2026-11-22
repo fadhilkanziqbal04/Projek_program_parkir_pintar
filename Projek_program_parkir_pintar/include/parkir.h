@@ -34,8 +34,5 @@ void kendaraankeluar(Slotparkir parkir[3][50], int *lantai, int *indeks);
 void pengingatWaktuReservasi (Slotparkir parkir[3][50]);
 void batalkanreservasi(Slotparkir parkir[3][50]);;
 int Cekkapasitas (Slotparkir parkir[3][50]);
-int cekplat(const char *platKendaraan);
 void kosongkan_array(Slotparkir parkir[3][50], int *lantai, int *indeks);
-
-
 #endif

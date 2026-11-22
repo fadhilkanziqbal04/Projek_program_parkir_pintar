@@ -4,29 +4,15 @@
 #include "../include/parkir.h"
 #include <ctype.h>
 #include <stdlib.h>
+#include "../include/utils.h"
 
 void Inputdatakendaraan (Slotparkir parkir[3][50]){
     int jenis;
-
-    printf("1. Mobil/truk pengangkut barang");
-    printf("\n2. Mobil penumpang");
-    printf("\n3. Sepeda motor");
-    printf("\nMasukkan tipe kendaraan : ");
-    while (scanf("%d", &jenis) != 1 || jenis < 1 || jenis > 3){
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        printf("Pilihan tidak valid, masukkan lagi : ");
-    }
-
+    inputkendaraan(&jenis);
     int i = 0;
     int member;
     int idx ;
-    printf("Apakah member?(1=Iya, 0=tidak)\n");
-    while((scanf(" %d", &member)) != 1 || member > 1 || member < 0){
-    int M;
-    while((M = getchar()) != '\n');
-        printf("Input tidak valid, masukkan lagi : ");
-    }
+    InputYaatauTidak("Apakah member?(1=Iya, 0=tidak)\n", &member);
     if(member == 1){
        idx = i;
     } else {
@@ -54,53 +40,13 @@ void Inputdatakendaraan (Slotparkir parkir[3][50]){
     }
 }
 
-int cekplat(const char *platKendaraan){
-    int len = strlen(platKendaraan);
-    int hurufawal = 0;
-    int idx = 0;
-    while (idx < len && isalpha((unsigned char)platKendaraan[idx])){
-        hurufawal++;
-        idx++;
-    }
-    if (hurufawal < 1|| hurufawal > 2){
-        return 0;
-    }
-    int angkatengah = 0;
-    while (idx < len && isdigit((unsigned char)platKendaraan[idx])){
-        angkatengah++;
-        idx++;
-    }
-    if (angkatengah < 1 || angkatengah > 4){
-        return 0;
-    }
-    int hurufakhir = 0;
-    while(idx < len && isalpha((unsigned char)platKendaraan[idx])){
-        hurufakhir++;
-        idx++;
-    }
-    if(hurufakhir < 1 || hurufakhir > 3){
-        return 0;
-    }
-    if(idx != len) return 0;
-    return 1;
-}
 
 
 void kendaraankeluar(Slotparkir parkir[3][50], int *lantai, int *indeks){
     *indeks = -1;
-    printf("Masukkan lantai parkir : ");
-    while (scanf("%d", lantai) != 1 || *lantai < 1 || *lantai > 3){
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        printf("Lantai tidak valid, masukkan lagi : ");
-    }
+    inputkendaraan(lantai);
     int karcis;
-    printf("Apakah karcis hilang?(1=Iya, 0=tidak)\n");
-    while((scanf(" %d", &karcis)) != 1 || karcis > 1 || karcis < 0){
-        int M;
-        while((M = getchar()) != '\n');
-        printf("Input tidak valid, masukkan lagi : ");
-    }
+    InputYaatauTidak("Apakah karcis hilang?(1=Iya, 0=tidak)\n", &karcis);
     if(karcis == 1){
         printf("Masukkan plat nomor(contoh : BM1234HH)\n");
         char platnomor[10];
@@ -178,15 +124,7 @@ int Cekkapasitas (Slotparkir parkir[3][50]){
 
 void Inputdatareservasi (Slotparkir parkir[3][50]){
     int jenis;
-    printf("1. Mobil/truk pengangkut barang");
-    printf("\n2. Mobil penumpang");
-    printf("\n3. Sepeda motor");
-    printf("\nMasukkan tipe kendaraan : ");
-    while (scanf("%d", &jenis) != 1 || jenis < 1 || jenis > 3){
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        printf("Pilihan tidak valid, masukkan lagi : ");
-    }
+    inputkendaraan(&jenis);
     int i;
     for(i = 0; i < 50; i++){
         if (parkir[jenis - 1][i].terisi == 0){
@@ -218,15 +156,7 @@ void reservasitiba (Slotparkir parkir[3][50]){
     int jenis;
     int idx = -1;
     char platnomor[10];
-    printf("1. Mobil/truk pengangkut barang");
-    printf("\n2. Mobil penumpang");
-    printf("\n3. Sepeda motor");
-    printf("\nMasukkan tipe kendaraan : ");
-    while (scanf("%d", &jenis) != 1 || jenis < 1 || jenis > 3){
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        printf("Pilihan tidak valid, masukkan lagi : ");
-    }
+    inputkendaraan(&jenis);
     printf("Masukkan plat nomor(contoh : BM1234HH)\n");
     do{
         
@@ -251,12 +181,7 @@ void reservasitiba (Slotparkir parkir[3][50]){
 }
 void batalkanreservasi(Slotparkir parkir[3][50]){
     int lantaiParkir;
-    printf("Masukkan lantai parkir : ");
-    while (scanf("%d", &lantaiParkir) != 1 || lantaiParkir < 1 || lantaiParkir > 3){
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        printf("Lantai tidak valid, masukkan lagi : ");
-    }
+    inputkendaraan(&lantaiParkir);
     int nomor;
     int indeks = -1;
         do{
