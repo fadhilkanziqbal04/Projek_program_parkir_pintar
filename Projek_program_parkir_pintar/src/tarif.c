@@ -115,7 +115,12 @@ int hitungTarif(int jenis, int durasiMenit) {
 }
 
 int hitungDenda(int jenis, int tiketHilang) {
-    if (tiketHilang != 1) {
+    if (ambilTarifPerJam(jenis) < 0 ||
+        (tiketHilang != 0 && tiketHilang != 1)) {
+        return -1;
+    }
+
+    if (tiketHilang == 0) {
         return 0;
     }
 
@@ -130,23 +135,22 @@ int hitungDenda(int jenis, int tiketHilang) {
 int hitungDiskonMember(int subtotal, int isMember, int jenisHari) {
     int persenDiskon;
 
-    if (subtotal < 0) {
+    if (subtotal < 0 ||
+        (isMember != 0 && isMember != 1) ||
+        (jenisHari != HARI_WEEKDAY && jenisHari != HARI_WEEKEND)) {
         return -1;
     }
 
-    if (isMember != 1) {
+    if (isMember == 0) {
         return 0;
     }
 
     if (jenisHari == HARI_WEEKDAY) {
         persenDiskon = DISKON_WEEKDAY;
-    } else if (jenisHari == HARI_WEEKEND) {
-        persenDiskon = DISKON_WEEKEND;
     } else {
-        return -1;
+        persenDiskon = DISKON_WEEKEND;
     }
 
-    /* Pembulatan ke rupiah terdekat tanpa memerlukan math.h. */
     return (subtotal * persenDiskon + 50) / 100;
 }
 

@@ -3,6 +3,7 @@
 
 int main(void) {
     RincianTarif rincian;
+    Slotparkir slot = {0};
 
     printf("UJI MODUL TARIF SMARTPARK\n");
 
@@ -32,5 +33,26 @@ int main(void) {
         return 1;
     }
 
-    return 0;
+    printf("\n=== UJI PEMBACAAN SLOT PARKIR ===\n");
+
+slot.terisi = 1;
+slot.kendaraan = JENIS_MOBIL;
+slot.isMember = 1;
+slot.booking = 0;
+slot.karcishilang = 0;
+
+slot.waktumasuk_hour = 10;
+slot.waktumasuk_mnt = 0;
+slot.waktukeluar_hour = 12;
+slot.waktukeluar_mnt = 0;
+
+if (prosesTarifSlot(&slot, HARI_WEEKDAY, &rincian)) {
+    cetakStruk(&rincian);
+    printf("Tarif tersimpan di slot: Rp%.0f\n", slot.tarif);
+} else {
+    printf("Pengujian slot gagal.\n");
+    return 1;
+}
+
+return 0;
 }
