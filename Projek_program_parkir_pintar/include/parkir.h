@@ -16,6 +16,7 @@ typedef struct{
     int waktureservasi_mnt;
     int booking;
     int status_booking;
+    float tarif;
 } Slotparkir ;
 
 typedef struct{
