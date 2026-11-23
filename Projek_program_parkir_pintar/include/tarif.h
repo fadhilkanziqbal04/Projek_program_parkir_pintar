@@ -1,6 +1,7 @@
 #ifndef TARIF_H
 #define TARIF_H
 
+#include "parkir.h"
 #include <time.h>
 
 /* Kode jenis kendaraan mengikuti dokumen rancangan sistem parkir kelompok:
@@ -77,6 +78,13 @@ int prosesPerhitunganTarif(int jenis, int durasiMenit,
 
 /* Menampilkan struk dari hasil prosesPerhitunganTarif(). */
 void cetakStruk(const RincianTarif *rincian);
+
+/* Membaca data kendaraan langsung dari satu slot array parkir. */
+int prosesTarifSlot(
+    Slotparkir *slot,
+    int jenisHari,
+    RincianTarif *rincian
+);
 
 #endif
 

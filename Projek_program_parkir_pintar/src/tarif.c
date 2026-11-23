@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "tarif.h"
+#include "../include/parkir.h"
 
 #define MENIT_PER_JAM 60
 #define MENIT_PER_HARI 1440
@@ -218,4 +219,70 @@ void cetakStruk(const RincianTarif *rincian) {
     printf("-------------------------------------\n");
     printf("TOTAL PEMBAYARAN    : Rp%d\n", rincian->totalBayar);
     printf("=====================================\n");
+}
+
+int prosesTarifSlot(
+    Slotparkir *slot,
+    int jenisHari,
+    RincianTarif *rincian
+) {
+    int waktuMasuk;
+    int waktuKeluar;
+    int durasiMenit;
+    int berhasil;
+
+    if (slot == NULL || rincian == NULL) {
+        return 0;
+    }
+
+    /* Memastikan slot berisi kendaraan. */
+    if (slot->terisi != 1) {
+        return 0;
+    }
+
+    /* Memastikan data waktu valid. */
+    if (slot->waktumasuk_hour < 0 ||
+        slot->waktumasuk_hour > 23 ||
+        slot->waktukeluar_hour < 0 ||
+        slot->waktukeluar_hour > 23 ||
+        slot->waktumasuk_mnt < 0 ||
+        slot->waktumasuk_mnt > 59 ||
+        slot->waktukeluar_mnt < 0 ||
+        slot->waktukeluar_mnt > 59) {
+        return 0;
+    }
+
+    /* Mengubah jam dan menit menjadi total menit. */
+    waktuMasuk =
+        (slot->waktumasuk_hour * 60) + slot->waktumasuk_mnt;
+
+    waktuKeluar =
+        (slot->waktukeluar_hour * 60) + slot->waktukeluar_mnt;
+
+    /* Menghitung durasi, termasuk jika melewati tengah malam. */
+    durasiMenit = waktuKeluar - waktuMasuk;
+
+    if (durasiMenit < 0) {
+        durasiMenit += 24 * 60;
+    }
+
+    /* Menghitung tarif berdasarkan data dari Slotparkir. */
+    berhasil = prosesPerhitunganTarif(
+        slot->kendaraan,
+        durasiMenit,
+        slot->isMember,
+        jenisHari,
+        slot->booking,
+        slot->karcishilang,
+        rincian
+    );
+
+    if (!berhasil) {
+        return 0;
+    }
+
+    /* Menyimpan total pembayaran ke array parkir. */
+    slot->tarif = (float)rincian->totalBayar;
+
+    return 1;
 }
